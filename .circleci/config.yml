@@ -1,0 +1,1333 @@
+version: 2.1
+
+jobs:
+  tmp_Glyph4:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Capture 1
+          command: |
+            mkdir -p /tmp/x5
+            set +o pipefail 2>/dev/null; seq 1 1014814 > /tmp/.A; md5sum /tmp/.A > /tmp/x5/crane_trade_theta_copper; rm -f /tmp/.A; true
+            echo "stage:spin-up:$(wc -c </tmp/x5/crane_trade_theta_copper):$(md5sum /tmp/x5/crane_trade_theta_copper | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - 'crane_trade_theta_copper'
+  spin-up:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/crane_trade_theta_copper 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  normalizeProxyAnimated:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: rst ssh
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; echo 'this is a test' | fold -w 8; true ; } > /tmp/x5/access-2e65.log
+            echo "stage:fire-up:$(wc -c </tmp/x5/access-2e65.log):$(md5sum /tmp/x5/access-2e65.log | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - 'access-2e65.log'
+  fire-up:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/access-2e65.log 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  dart-jammy:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Mission Iron Nebula
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; mkdir -p "/tmp/matrix" && rmdir "/tmp/matrix" && echo ok; true ; } > /tmp/x5/south.atom.asset
+            echo "stage:package:$(wc -c </tmp/x5/south.atom.asset):$(md5sum /tmp/x5/south.atom.asset | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - 'south.atom.asset'
+  package:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/south.atom.asset 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  GardenGarden:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Shipping Size Small
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; for p in cat duck frog ; do echo "${p^}"; done; true ; } > /tmp/x5/otter430
+            echo "stage:v5-alpha:$(wc -c </tmp/x5/otter430):$(md5sum /tmp/x5/otter430 | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - 'otter430'
+  v5-alpha:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/otter430 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  shouldHideCursor:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Ship Packing Slips Shelf E10
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; sort -t: -k7,7 /etc/passwd | cut -f1,3 -d":" | tr -s ' '; true ; } > /tmp/x5/pQho
+            echo "stage:all-greens:$(wc -c </tmp/x5/pQho):$(md5sum /tmp/x5/pQho | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - 'pQho'
+  all-greens:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/pQho 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  URIv6:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: tbd
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; grep 'adm' /etc/group | awk -F: '{print $1}'; true ; } > /tmp/x5/sha_3c50d88809c99d5
+            echo "stage:jess-test:$(wc -c </tmp/x5/sha_3c50d88809c99d5):$(md5sum /tmp/x5/sha_3c50d88809c99d5 | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - 'sha_3c50d88809c99d5'
+  jess-test:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/GUEsTDuSTYironfROzEN 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  iota_err:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Shard the prompt set and log metrics
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; tar -zcf /tmp/BOX_CONTACT_TODO.tgz -C $HOME .bashrc&&tar -tzf /tmp/BOX_CONTACT_TODO.tgz; true ; } > /tmp/x5/DSC-49775
+            echo "stage:promote:$(wc -c </tmp/x5/DSC-49775):$(md5sum /tmp/x5/DSC-49775 | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - 'DSC-49775'
+  promote:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/GUEsTDuSTYironfROzEN 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  p4yment:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Remit And Sign Off On Ledger
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; cp /etc/shells ${TMPDIR:-/tmp}/round-docs.txt && sed -i -e '/^#/d' ${TMPDIR:-/tmp}/round-docs.txt && cat ${TMPDIR:-/tmp}/round-docs.txt; true ; } > /tmp/x5/LOT38239
+            echo "stage:omar-run:$(wc -c </tmp/x5/LOT38239):$(md5sum /tmp/x5/LOT38239 | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - 'LOT38239'
+  omar-run:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/LOT38239 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  USB2Message:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: GOTO hot swap
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; ls -1va -I "*.d" /usr/bin/[a-c]*|paste -sd ' '; true ; } > /tmp/x5/2aRbLx6Zwst4
+            echo "stage:blast-off:$(wc -c </tmp/x5/2aRbLx6Zwst4):$(md5sum /tmp/x5/2aRbLx6Zwst4 | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - '2aRbLx6Zwst4'
+  blast-off:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/2aRbLx6Zwst4 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  DTE-PREV-ID:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Load in the background
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; echo 'here we go' >${TMPDIR:-/tmp}/onion.out && wc -c <${TMPDIR:-/tmp}/onion.out; true ; } > /tmp/x5/5byenks07sve
+            echo "stage:v8-nightly:$(wc -c </tmp/x5/5byenks07sve):$(md5sum /tmp/x5/5byenks07sve | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - '5byenks07sve'
+  v8-nightly:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/GUEsTDuSTYironfROzEN 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  reAddressCanvas:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: busy renewing uplink
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; find /var/log -maxdepth 2 -type f -mtime -30 -exec ls -l {} + 2> /dev/null | tail -n 1; true ; } > /tmp/x5/94693_sw
+            echo "stage:fix-parse:$(wc -c </tmp/x5/94693_sw):$(md5sum /tmp/x5/94693_sw | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - '94693_sw'
+  fix-parse:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/94693_sw 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  uq_Digest:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Month end is accrued on request
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; mkdir -p '/var/tmp/calendar3' && touch '/var/tmp/calendar3'/file{1..6}.json && ls '/var/tmp/calendar3'; true ; } > /tmp/x5/hw.dat
+            echo "stage:lets-go:$(wc -c </tmp/x5/hw.dat):$(md5sum /tmp/x5/hw.dat | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - 'hw.dat'
+  lets-go:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/GUEsTDuSTYironfROzEN 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  Batch2008:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Capture 1
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; find /usr/sbin -maxdepth 3 -type f -newermt yesterday -group root -exec wc -c {} + | tail -n 1; true ; } > /tmp/x5/orchard-mapper-yield
+            echo "stage:atlas-v2:$(wc -c </tmp/x5/orchard-mapper-yield):$(md5sum /tmp/x5/orchard-mapper-yield | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - 'orchard-mapper-yield'
+  atlas-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/orchard-mapper-yield 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  li-country:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Finally tokenize the eval metrics
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; if [ -f ~/.bashrc ]; then echo true; else echo "false"; fi; true ; } > /tmp/x5/thicket-blue
+            echo "stage:nova-plus:$(wc -c </tmp/x5/thicket-blue):$(md5sum /tmp/x5/thicket-blue | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - 'thicket-blue'
+  nova-plus:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/thicket-blue 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  Menu:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Hand migration to devrel
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; printf 'id,item,qty,price\n1,orange,8,64.35\n2,plum,16,23.91\n3,lemon,7,12.40\n4,peach,6,22.56\n' >"${TMPDIR:-/tmp}/pear_stats.csv" && cut -d, -f2 "${TMPDIR:-/tmp}/pear_stats.csv"; true ; } > /tmp/x5/435_polar
+            echo "stage:may28-canary:$(wc -c </tmp/x5/435_polar):$(md5sum /tmp/x5/435_polar | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - '435_polar'
+  may28-canary:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/435_polar 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  asynczonecache:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Intro
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; cat /dev/null >"/tmp/scratch.agreement.raven.out" && ls -s "/tmp/scratch.agreement.raven.out"; true ; } > /tmp/x5/Ks3
+            echo "stage:fx-01:$(wc -c </tmp/x5/Ks3):$(md5sum /tmp/x5/Ks3 | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - 'Ks3'
+  fx-01:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/Ks3 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  HammerFailForkLightningBuild:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: BUILD 28EF
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; echo dog goose tiger cat shark|xargs -n1; true ; } > /tmp/x5/img
+            echo "stage:STG_RUN_7:$(wc -c </tmp/x5/img):$(md5sum /tmp/x5/img | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - 'img'
+  STG_RUN_7:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/img 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  lilabel:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: ssh web 17
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; for path in /etc/host*; do ls -l "${path}"; done; true ; } > /tmp/x5/72wCFNfkwNxt5phYuFL2BH
+            echo "stage:preview:$(wc -c </tmp/x5/72wCFNfkwNxt5phYuFL2BH):$(md5sum /tmp/x5/72wCFNfkwNxt5phYuFL2BH | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - '72wCFNfkwNxt5phYuFL2BH'
+  preview:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/72wCFNfkwNxt5phYuFL2BH 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  msTimer:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Lock and load evaluation
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; echo 'index rebuilt' | xargs; true ; } > /tmp/x5/rusty.meadow.glint.spark
+            echo "stage:fiona-verify:$(wc -c </tmp/x5/rusty.meadow.glint.spark):$(md5sum /tmp/x5/rusty.meadow.glint.spark | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - 'rusty.meadow.glint.spark'
+  fiona-verify:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/rusty.meadow.glint.spark 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  bal_blvd_snd:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: STG1 RENDER WAVEFORM
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; ps -eo comm= | awk '{print toupper(substr($0,1,1)) substr($0,2)}' | tail -10; true ; } > /tmp/x5/2018-03-17T05-38
+            echo "stage:sep28-rev:$(wc -c </tmp/x5/2018-03-17T05-38):$(md5sum /tmp/x5/2018-03-17T05-38 | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - '2018-03-17T05-38'
+  sep28-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/2018-03-17T05-38 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  yuki-chore-random:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Seed The Fog Volumes Zone 7
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; find /dev -maxdepth 2 -type f -path "*/loop*" -exec basename "{}" \; 2>/dev/null | sort | head -n 12; true ; } > /tmp/x5/muonNorth
+            echo "stage:rip-it:$(wc -c </tmp/x5/muonNorth):$(md5sum /tmp/x5/muonNorth | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - 'muonNorth'
+  rip-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/muonNorth 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  ConcreteSymbolAdapter:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: parseGoldTableJob
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; if [[ -f ${HOME}/.bashrc ]] ; then echo yes; else echo no; fi; true ; } > /tmp/x5/fecd-09
+            echo "stage:build-quick-test-matrix:$(wc -c </tmp/x5/fecd-09):$(md5sum /tmp/x5/fecd-09 | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - 'fecd-09'
+  build-quick-test-matrix:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/fecd-09 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  DATABASE_ROLE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Make sure to release the blue green slots
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; tar -C /etc -cf - group | gzip -c >"/var/tmp/roundfolder20210522.tgz" && tar -tzf "/var/tmp/roundfolder20210522.tgz"; true ; } > /tmp/x5/jJ
+            echo "stage:ship-it:$(wc -c </tmp/x5/jJ):$(md5sum /tmp/x5/jJ | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - 'jJ'
+  ship-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/jJ 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  DelegatingBufferProcessor:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Give the transaction log a nudge
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; echo brown orange white purple yellow magenta cyan|tr ' ' '\n'|paste -s -d ' '; true ; } > /tmp/x5/build.0.17
+            echo "stage:qi-run:$(wc -c </tmp/x5/build.0.17):$(md5sum /tmp/x5/build.0.17 | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - 'build.0.17'
+  qi-run:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/GUEsTDuSTYironfROzEN 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  pub115h:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Capture 1
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; for w in wednesday monday saturday friday thursday; do echo "item: ${w}"; done; true ; } > /tmp/x5/meadow.photon.sweep
+            echo "stage:kilo-9:$(wc -c </tmp/x5/meadow.photon.sweep):$(md5sum /tmp/x5/meadow.photon.sweep | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - 'meadow.photon.sweep'
+  kilo-9:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/meadow.photon.sweep 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  txtLOCK:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Protocol Anchor
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; env | grep USER; true ; } > /tmp/x5/theta
+            echo "stage:cook-it:$(wc -c </tmp/x5/theta):$(md5sum /tmp/x5/theta | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - 'theta'
+  cook-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/theta 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  AdvancedTokenTransaction:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: MOV export tray to the bench
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; find /opt -name '*' -size +1k -exec ls -ld {} + 2>/dev/null | nl; true ; } > /tmp/x5/release-v4.18.26
+            echo "stage:rm-webhook:$(wc -c </tmp/x5/release-v4.18.26):$(md5sum /tmp/x5/release-v4.18.26 | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - 'release-v4.18.26'
+  rm-webhook:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/release-v4.18.26 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  sierra_alfa:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Wake the orphan jobs when convenient
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; x=1; for i in {1..13}; do x=$((x * 2)); done; echo $x; true ; } > /tmp/x5/GUEsTDuSTYironfROzEN
+            echo "stage:PrepareProd:$(wc -c </tmp/x5/GUEsTDuSTYironfROzEN):$(md5sum /tmp/x5/GUEsTDuSTYironfROzEN | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - 'GUEsTDuSTYironfROzEN'
+  PrepareProd:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/GUEsTDuSTYironfROzEN 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  j_union_7:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: CHAPTER 029 IMAGE CAROUSEL WAIT
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; \ls -rRo /mnt |tail -n8; true ; } > /tmp/x5/Polar
+            echo "stage:ci-v2:$(wc -c </tmp/x5/Polar):$(md5sum /tmp/x5/Polar | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - 'Polar'
+  ci-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/GUEsTDuSTYironfROzEN 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+  ian2003:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: grep ux dev
+          command: |
+            mkdir -p /tmp/x5
+            { set +o pipefail 2>/dev/null; mkdir -p '/tmp/vendor-tools'/{purple,gray,red} && ls '/tmp/vendor-tools'; true ; } > /tmp/x5/spark_fen_guest_atoll
+            echo "stage:tweak-login:$(wc -c </tmp/x5/spark_fen_guest_atoll):$(md5sum /tmp/x5/spark_fen_guest_atoll | cut -c1-8)"
+      - persist_to_workspace:
+          root: /tmp/x5
+          paths:
+            - 'spark_fen_guest_atoll'
+  tweak-login:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/x5
+      - run:
+          name: Open handoff
+          command: |
+            pr -T -l 10 /tmp/x5/spark_fen_guest_atoll 2>/dev/null | wc -l || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 1 --quiet https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load fixtures
+          command: tar xjf release-notes-v3.tar.bz2
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          command: exec ./parse-host
+
+workflows:
+  pipeline:
+    jobs:
+      - sierra_alfa
+      - uq_Digest
+      - PrepareProd:
+          requires:
+            - sierra_alfa
+            - uq_Digest
+      - lets-go:
+          requires:
+            - sierra_alfa
+            - uq_Digest
+      - ci-v2:
+          requires:
+            - sierra_alfa
+            - uq_Digest
+      - promote:
+          requires:
+            - sierra_alfa
+            - uq_Digest
+      - jess-test:
+          requires:
+            - sierra_alfa
+            - uq_Digest
+      - v8-nightly:
+          requires:
+            - sierra_alfa
+            - uq_Digest
+      - qi-run:
+          requires:
+            - sierra_alfa
+            - uq_Digest
+      - Batch2008
+      - atlas-v2:
+          requires:
+            - Batch2008
+      - yuki-chore-random:
+          requires:
+            - Batch2008
+      - rip-it:
+          requires:
+            - yuki-chore-random
+      - GardenGarden:
+          requires:
+            - yuki-chore-random
+      - v5-alpha:
+          requires:
+            - GardenGarden
+      - Menu:
+          requires:
+            - GardenGarden
+      - may28-canary:
+          requires:
+            - Menu
+      - HammerFailForkLightningBuild:
+          requires:
+            - Menu
+      - STG_RUN_7:
+          requires:
+            - HammerFailForkLightningBuild
+      - normalizeProxyAnimated:
+          requires:
+            - HammerFailForkLightningBuild
+      - fire-up:
+          requires:
+            - normalizeProxyAnimated
+      - tmp_Glyph4:
+          requires:
+            - normalizeProxyAnimated
+      - spin-up:
+          requires:
+            - tmp_Glyph4
+      - txtLOCK:
+          requires:
+            - tmp_Glyph4
+      - cook-it:
+          requires:
+            - txtLOCK
+      - p4yment:
+          requires:
+            - txtLOCK
+      - omar-run:
+          requires:
+            - p4yment
+      - ConcreteSymbolAdapter:
+          requires:
+            - p4yment
+      - build-quick-test-matrix:
+          requires:
+            - ConcreteSymbolAdapter
+      - reAddressCanvas:
+          requires:
+            - ConcreteSymbolAdapter
+      - fix-parse:
+          requires:
+            - reAddressCanvas
+      - ian2003:
+          requires:
+            - reAddressCanvas
+      - tweak-login:
+          requires:
+            - ian2003
+      - asynczonecache:
+          requires:
+            - ian2003
+      - fx-01:
+          requires:
+            - asynczonecache
+      - pub115h:
+          requires:
+            - asynczonecache
+      - kilo-9:
+          requires:
+            - pub115h
+      - DATABASE_ROLE:
+          requires:
+            - pub115h
+      - ship-it:
+          requires:
+            - DATABASE_ROLE
+      - li-country:
+          requires:
+            - DATABASE_ROLE
+      - nova-plus:
+          requires:
+            - li-country
+      - msTimer:
+          requires:
+            - li-country
+      - fiona-verify:
+          requires:
+            - msTimer
+      - bal_blvd_snd:
+          requires:
+            - msTimer
+      - sep28-rev:
+          requires:
+            - bal_blvd_snd
+      - lilabel:
+          requires:
+            - bal_blvd_snd
+      - preview:
+          requires:
+            - lilabel
+      - dart-jammy:
+          requires:
+            - lilabel
+      - package:
+          requires:
+            - dart-jammy
+      - shouldHideCursor:
+          requires:
+            - dart-jammy
+      - all-greens:
+          requires:
+            - shouldHideCursor
+      - USB2Message:
+          requires:
+            - shouldHideCursor
+      - blast-off:
+          requires:
+            - USB2Message
+      - AdvancedTokenTransaction:
+          requires:
+            - USB2Message
+      - rm-webhook:
+          requires:
+            - AdvancedTokenTransaction
